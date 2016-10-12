@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        //No code is needed in main
     }
 
     /**
@@ -16,7 +15,17 @@ public class Main {
      * @return An array of integers with two elements, the largest and smallest from the method parameter
      */
     public static int[] findLargestAndSmallest(int array[]){
+        int max = array[0];
+        int min = array[0];
+        for(int i = 1; i < array.length; i++) {
+            if(array[i] > max)
+                max = array[i];
+            else if (array[i] < min)
+                min = array[i];
 
+        }
+        int[] minMaxNumbers = {min, max};
+        return minMaxNumbers;
     }
 
 
@@ -31,10 +40,30 @@ public class Main {
      * @param intList A List of integers of any size.
      * @return Sum of the two largest values
      */
-    public static int sumOfTwoLargest(List intList){
-
+    public static int sumOfTwoLargest(List<Integer> intList) {
+        if (intList.isEmpty()) {
+            return 0;
+        } else if (intList.size() == 1) {
+            return intList.get(0);
+        } else {
+            int max = intList.get(0);
+            for (int i = 1; i < intList.size(); i++) {
+                if (intList.get(i) > max)
+                    max = intList.get(i);
+            }
+            for (int i = 0; i < intList.size(); i++) {
+                if (intList.get(i).equals(max)) {
+                    intList.remove(i--);
+                }
+            }
+            int secondmax = 0;
+            for (int i = 1; i < intList.size(); i++) {
+                if (intList.get(i) > secondmax)
+                    secondmax = intList.get(i);
+            }
+            return max + secondmax;
+        }
     }
-
 
     /**
      * Question3: Remove duplicates from a List
@@ -51,33 +80,42 @@ public class Main {
      * @return A List of Integers that doesn't contain duplicates.
      */
     public static List removeDuplicatesFromList(List intList){
-
+        LinkedHashSet<Integer> removeD = new LinkedHashSet<>();
+        removeD.addAll(intList);
+        intList.clear();
+        intList.addAll(removeD);
+        return intList;
     }
 
+    //IMPORTANT: For the 2nd & 3rd questions the code I write passes the test conditions when I create the test array Lists
+    //manually. However it fails when I run the MainTest class. I made a bit of research and found this:
+    //http://stackoverflow.com/questions/2965747/why-i-get-unsupportedoperationexception-when-trying-to-remove-from-the-list
+    //Because the array lists in the tests are create using Arrays.asList(); my codes are failing as I cannot remove elements.
+    //Is there a way to overcome this?
 
-    //BONUS QUESTION IS BELOW
-
-    /**
-     * BONUS:
-     *
-     * Given two sorted arrays of integers, return a sorted array of the two original arrays merged together.
-     * All valid numbers in these arrays are greater than 0.
-     *
-     * array1 has enough empty space (represented by the value 0) to hold all valid values from the original two arrays
-     * combined. The returned array must be array1 with the new values merged in.
-     *
-     * For example:
-     *      array1 = [1,4,7,9,0,0,0]
-     *      array2 = [1,5,11]
-     *      returned array = [1,1,4,5,7,9,11]
-     *
-     * No test cases are provided for this method, you will need to test it on your own.
-     *
-     * @param array1 Array of sorted integers
-     * @param array2 Array of sorted integers
-     * @return Array of sorted integers, merged from array1 and array2
-     */
-    public static int[] mergeSortedArrays(int[] array1, int[] array2){
-        return null;
-    }
+//    //BONUS QUESTION IS BELOW
+//
+//    /**
+//     * BONUS:
+//     *
+//     * Given two sorted arrays of integers, return a sorted array of the two original arrays merged together.
+//     * All valid numbers in these arrays are greater than 0.
+//     *
+//     * array1 has enough empty space (represented by the value 0) to hold all valid values from the original two arrays
+//     * combined. The returned array must be array1 with the new values merged in.
+//     *
+//     * For example:
+//     *      array1 = [1,4,7,9,0,0,0]
+//     *      array2 = [1,5,11]
+//     *      returned array = [1,1,4,5,7,9,11]
+//     *
+//     * No test cases are provided for this method, you will need to test it on your own.
+//     *
+//     * @param array1 Array of sorted integers
+//     * @param array2 Array of sorted integers
+//     * @return Array of sorted integers, merged from array1 and array2
+//     */
+//    public static int[] mergeSortedArrays(int[] array1, int[] array2){
+//        return null;
+//    }
 }
